@@ -96,11 +96,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.94.0\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Instrumentation" />
     <Reference Include="System.Windows.Forms" />
@@ -127,8 +122,8 @@
     <Compile Include="Interfaces\IUserSelected.cs" />
     <Compile Include="Interfaces\IRemoteExecute.cs" />
     <Compile Include="Interfaces\ISaveBackupInformation.cs" />
-    <Compile Include="Model\BackupDatabase.cs" />
     <Compile Include="Model\BackupDatabaseSQLite.cs" />
+    <Compile Include="Model\BackupJob.cs" />
     <Compile Include="Model\BaseInformation.cs" />
     <Compile Include="Model\ComputerUsers.cs" />
     <Compile Include="Model\ComputerUsersFromWMI.cs" />
@@ -273,11 +268,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)USMT
-xcopy /S /Y $(ProjectDir)USMT $(TargetDir)USMT
-    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
-    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+xcopy /S /Y $(ProjectDir)USMT $(TargetDir)USMT</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
