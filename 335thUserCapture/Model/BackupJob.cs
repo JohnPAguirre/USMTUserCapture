@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace _335thUserCapture.Model
 {
- public class BackupJob : IUserJob{
+    public class BackupJob : IUserJob
+    {
 
         private int _id;
         public int ID
@@ -105,3 +106,4 @@ namespace _335thUserCapture.Model
             }
         }
     }
+}
