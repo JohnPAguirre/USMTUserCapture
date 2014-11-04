@@ -62,24 +62,6 @@ namespace UnitTest
         }*/
 
         [TestMethod]
-        public void TestCreatingDB()
-        {
-            BackupDatabase test = new BackupDatabase();
-            int ID = test.SaveBackupInfo("test", "ThisPuter", "BLAHAHAHA");
-            test.CompletedBackup(ID);
-            List<IUserJob> allJobs = test.AllBackups();
-            IUserJob found = null;
-            for (int i = 0; i < allJobs.Count; i++)
-            {
-                if (allJobs[i].ID == ID)
-                    found = allJobs[i];
-                Debug.WriteLine(allJobs[i]);
-            }
-            Assert.IsNotNull(found);
-
-        }
-
-        [TestMethod]
         public void RestoreFromInteralStoreTest()
         {
             var backupInfo = new TestGetBckupInfo();
