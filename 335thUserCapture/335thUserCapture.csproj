@@ -268,7 +268,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)USMT
-xcopy /S /Y $(ProjectDir)USMT $(TargetDir)USMT</PostBuildEvent>
+xcopy /S /Y $(SolutionDir)packages\USMT $(TargetDir)USMT
+mkdir $(TargetDir)x64
+xcopy /S /Y $(SolutionDir)packages\System.Data.SQLite.Core.1.0.94.0\build\net45\x64 $(TargetDir)x64
+mkdir $(TargetDir)x86
+xcopy /S /Y $(SolutionDir)packages\System.Data.SQLite.Core.1.0.94.0\build\net45\x86 $(TargetDir)x86
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
