@@ -132,6 +132,7 @@
     <Compile Include="ObjectFactory\ModelFactory.cs" />
     <Compile Include="ObjectFactory\ViewModelFactory.cs" />
     <Compile Include="ViewModel\ButtonExecute.cs" />
+    <Compile Include="ViewModel\CaptureOneUserOnComputer\CaptureOneUserOnComputer.cs" />
     <Compile Include="ViewModel\CaptureOneUserOnComputer\ComputerUserViewModel.cs" />
     <Compile Include="ViewModel\CaptureOneUserOnComputer\LocationViewModel.cs" />
     <Compile Include="ViewModel\CaptureOneUserOnComputer\OutputViewModel.cs" />

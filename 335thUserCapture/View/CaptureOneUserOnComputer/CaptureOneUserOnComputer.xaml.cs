@@ -33,5 +33,10 @@ namespace _335thUserCapture.View.CaptureOneUserOnComputer
                 Application.Current.Shutdown();
             }
         }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
