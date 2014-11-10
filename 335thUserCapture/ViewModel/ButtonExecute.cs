@@ -51,4 +51,49 @@ namespace _335thUserCapture.ViewModel
             _RemoteAction();
         }
     }
+
+    /// <summary>
+    /// Base implementation of ICommand with async.  Enable and Disable methods change the CanExecute
+    /// methods output.
+    /// </summary>
+    public class ButtonAsyncExecute : ICommand
+    {
+        private Func<Task> _RemoteAction;
+        private bool _canExecute;
+
+        public ButtonAsyncExecute(Func<Task> RemoteAction)
+        {
+            _RemoteAction = RemoteAction;
+            _canExecute = false;
+        }
+
+        public void Enable()
+        {
+            _canExecute = true;
+            ExecuteChanged();
+        }
+
+        public void Disabled()
+        {
+            _canExecute = false;
+            ExecuteChanged();
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        private void ExecuteChanged()
+        {
+            if (CanExecuteChanged != null)
+                CanExecuteChanged(this, null);
+        }
+        public async void Execute(object parameter)
+        {
+            await _RemoteAction();
+        }
+    }
 }

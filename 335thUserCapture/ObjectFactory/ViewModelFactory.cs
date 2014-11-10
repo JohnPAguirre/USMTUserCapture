@@ -12,58 +12,20 @@ namespace _335thUserCapture.ObjectFactory
     /// </summary>
     public class ViewModelFactory
     {
-        private static ComputerUserViewModel _computerUserViewModel;
-        private static LocationViewModel _locationViewModel;
-        private static StartBackupViewModel _startBackupViewModel;
-        private static OutputViewModel _outputViewModel;
         private static RestoreFromInternalStoreViewModel _restoreFromInternalStoreViewModel;
+        private static CaptureOneUserOnComputerViewModel _captureOneUserOnComputerViewModel;
 
-        static public ComputerUserViewModel CreateComputerUserViewModel
+        static public CaptureOneUserOnComputerViewModel CreateCaptureOneUserOnComputerViewModel
         {
             get
             {
-                if (_computerUserViewModel == null)
-                    _computerUserViewModel = new ComputerUserViewModel(ModelFactory.CreateUserList,
-                        ModelFactory.CreateUserSelected);
-                return _computerUserViewModel;
-            }
-        }
-
-        static public LocationViewModel CreateLocationViewModel
-        {
-            get
-            {
-                if (_locationViewModel == null)
-                    _locationViewModel = new LocationViewModel(ModelFactory.CreateBaseLocationsFolder);
-                return _locationViewModel;
-            }
-        }
-
-        static public StartBackupViewModel CreateStartBackupViewModel
-        {
-            get
-            {
-                if (_startBackupViewModel == null)
-                    _startBackupViewModel = new StartBackupViewModel(ModelFactory.CreateUserSelected,
+                if (_captureOneUserOnComputerViewModel == null)
+                    _captureOneUserOnComputerViewModel = new CaptureOneUserOnComputerViewModel(
+                        ModelFactory.CreateUserList,
                         ModelFactory.CreateBaseLocationsFolder,
-                        ViewModelFactory.CreateOutputViewModel);
-                return _startBackupViewModel;
-            }
-        }
-
-        static public OutputViewModel CreateOutputViewModel
-        {
-            get
-            {
-                if (_outputViewModel == null)
-                {
-                    _outputViewModel = new OutputViewModel(ModelFactory.CreateBaseLocationsFolder,
-                        ModelFactory.CreateUserSelected,
                         ModelFactory.CreatWriteDB);
-                }
-                return _outputViewModel;
+                return _captureOneUserOnComputerViewModel;
             }
-
         }
 
         static public RestoreFromInternalStoreViewModel CreateRestoreFromInternalStoreViewModel

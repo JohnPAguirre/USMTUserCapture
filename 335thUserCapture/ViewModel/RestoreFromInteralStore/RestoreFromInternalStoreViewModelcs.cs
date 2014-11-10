@@ -85,11 +85,6 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
                         ChangedProperty("Output");
                     }
                 });
-                //todo
-                /*.ContinueWith((Task a) => 
-                {
-                    Dispatch _startBackup.Enable();
-                });*/
             });
         }
 

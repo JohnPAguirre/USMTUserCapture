@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _335thUserCapture.ObjectFactory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,7 @@ namespace _335thUserCapture.View.CaptureOneUserOnComputer
             try
             {
                 InitializeComponent();
+                DataContext = ViewModelFactory.CreateCaptureOneUserOnComputerViewModel;
             }
             catch (Exception)
             {

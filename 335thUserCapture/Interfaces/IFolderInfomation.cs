@@ -14,7 +14,7 @@ namespace _335thUserCapture.Interfaces
         string UserBackupFolder { get; set; }
         string LogFilesFolder { get; set; }
 
-        bool IsBaseFolderValid { get; set; }
+        bool IsBaseFolderValid { get; }
         void CreateUserBackupFolder();
     }
 }

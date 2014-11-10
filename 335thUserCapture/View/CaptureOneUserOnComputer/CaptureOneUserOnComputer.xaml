@@ -28,19 +28,18 @@
             <Label>List of uses currently installed</Label>
             <Label>Please select user to backup</Label>
         </StackPanel>
-        <ListBox Margin="10" Background="Transparent" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Grid.Row="2"/>
-
+        <ListBox Margin="10" Background="Transparent" ItemsSource="{Binding Users, Mode=OneWay}" SelectedItem="{Binding SelectedUser}" Grid.Row="2"/>
+        <StackPanel Margin="10" Grid.Row="3">
+            <TextBlock TextWrapping="Wrap">The backup file will be saved at the following location</TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding Location, Mode=OneWay}" />
+        </StackPanel>
         <Button Content="Start Backup" Grid.Column="1" Margin="5" Grid.Row="3" Command="{Binding StartBackup}"/>
         <TextBox Margin="10" Grid.Row="4" TextWrapping="Wrap" 
                  ScrollViewer.CanContentScroll="True" 
                  ScrollViewer.VerticalScrollBarVisibility="Visible" 
                  ScrollViewer.HorizontalScrollBarVisibility="Visible" 
                  Grid.ColumnSpan="2" IsReadOnly="True" 
-                 Text="{Binding Output}" TextChanged="TextBox_TextChanged_1"
+                 Text="{Binding Output, Mode=OneWay}" TextChanged="TextBox_TextChanged_1"
                  Background="Transparent"/>
-        <StackPanel Margin="10" Grid.Row="3">
-            <TextBlock TextWrapping="Wrap">The backup file will be saved at the following location</TextBlock>
-            <TextBox IsReadOnly="True" Text="{Binding Location}" />
-        </StackPanel>
     </Grid>
 </UserControl>

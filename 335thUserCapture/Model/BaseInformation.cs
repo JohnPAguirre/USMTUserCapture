@@ -22,7 +22,11 @@ namespace _335thUserCapture.Model
             {
                 _baseFolder = value;
                 if (PropertyChanged != null)
+                {
                     PropertyChanged(this, new PropertyChangedEventArgs("BaseFolder"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsBaseFolderValid"));
+                }
+
 
             }
         }
@@ -111,13 +115,7 @@ namespace _335thUserCapture.Model
         {
             get
             {
-                return _isBaseFolderValid;
-            }
-            set 
-            {
-                _isBaseFolderValid = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsBaseFolderValid"));
+                return (new DirectoryInfo(this._baseFolder)).Exists;
             }
         }
 
