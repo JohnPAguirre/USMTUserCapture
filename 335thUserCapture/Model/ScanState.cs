@@ -13,15 +13,15 @@ namespace _335thUserCapture.Model
     /// <summary>
     /// Runs scanstate on the computer
     /// </summary>
-    public class ScanState : IDisposable
+    public class ScanState : IScanState, IDisposable
     {
         //process information
-        Process _scanState;
+        private Process _scanState;
         //output stream
-        StreamReader _output;
+        private StreamReader _output;
 
         //internal variable to signal when output is ready
-        EventWaitHandle _isReady;
+        private EventWaitHandle _isReady;
 
         /// <summary>
         /// Builds this and starts the process
@@ -46,28 +46,13 @@ namespace _335thUserCapture.Model
                 folders.BaseFolder + folders.USMTBinaryFolder,
                 user);
             _scanState.StartInfo.Arguments = arguments;
-            //We have to start USMT in a different thread or it locks up the GUI.  To do this we have this following method await the process
-            this.StartBackup();
-
-        }
-
-        /// <summary>
-        /// This method should be executed in a different thread.  Please only call this from the StartProcess Thread
-        /// TODO: Possibly refactor
-        /// </summary>
-        private async void StartBackup()
-        {
-            await Task.Run((Func<bool>)_scanState.Start);
+            Task.Run(() =>
+            {
+                _scanState.Start();
+                _isReady.Set();
+            });
+            _isReady.WaitOne();
             _output = _scanState.StandardOutput;
-            _isReady.Set();
-        }
-
-        /// <summary>
-        /// This funciton will wait until _output is set to something and then proceed
-        /// </summary>
-        public async Task Ready()
-        {
-            await Task.Run((Func<bool>)_isReady.WaitOne);
         }
 
         public StreamReader Output
@@ -75,7 +60,7 @@ namespace _335thUserCapture.Model
             get
             {
                 if (_output == null)
-                    throw new InvalidOperationException("Please wait until Ready function is complete before reading this variable");
+                    throw new ApplicationException("For some reason USMT failed ot start");
                 return _output;
             }
         }
