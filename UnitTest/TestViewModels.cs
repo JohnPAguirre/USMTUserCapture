@@ -173,6 +173,19 @@ namespace UnitTest
         {
             return "User:" + this.User + "\r\nComputer:" + this.Computer + "\r\nStart time:" + Start.ToLocalTime();
         }
+
+
+        public string CurrentBackupLocation
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 
     

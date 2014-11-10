@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace _335thUserCapture.ObjectFactory
 {
+    /// <summary>
+    /// This is the IOC containter that injects all required dependencies for all
+    /// the models in this project
+    /// </summary>
     public class ModelFactory
     {
-        //BaseInformation implements both IFolderInformation and IUserSelected and will pass that info along to all revelant viewcontainers
         private static BaseInformation _BaseInformation;
         private static IFolderInformation _baseFolders;
-        private static IUserSelected _userSelected;
         private static IUsersInfo _computerUsers;
         private static BackupDatabaseSQLite _db;
         private static ILoadState _loadState;
@@ -37,16 +39,6 @@ namespace _335thUserCapture.ObjectFactory
                 if (_computerUsers == null)
                     _computerUsers = new ComputerUsersFromFolders();
                 return _computerUsers;
-            }
-        }
-
-        static public IUserSelected CreateUserSelected
-        {
-            get
-            {
-                if (_userSelected == null)
-                    _userSelected = ModelFactory.CreateBaseInformation;
-                return _userSelected;
             }
         }
 

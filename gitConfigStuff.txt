@@ -1,0 +1,36 @@
+git config --global diff.tool p4merge
+git config --global difftool.p4merge.cmd '\"c:/Program Files/Perforce/p4merge.exe\" "$LOCAL" "$REMOTE"'
+git config --global difftool.prompt false
+
+git config --global merge.tool p4merge
+git config --global mergetool.p4merge.cmd '\"c:/Program Files/Perforce/p4merge.exe\" "$BASE" "$LOCAL" "$REMOTE" "$MERGED"'
+git config --global mergetool.prompt false
+git config --global mergetool.trustExitCode false
+git config --global mergetool.keepBackup false
+
+
+
+
+git config --system diff.tool p4merge
+git config --system difftool.p4merge.cmd '\"c:/Program Files/Perforce/p4merge.exe\" "$LOCAL" "$REMOTE"'
+git config --system difftool.prompt false
+			 
+git config --system merge.tool p4merge
+git config --system mergetool.p4merge.cmd '\"c:/Program Files/Perforce/p4merge.exe\" "$BASE" "$LOCAL" "$REMOTE" "$MERGED"'
+git config --system mergetool.prompt false
+git config --system mergetool.trustExitCode false
+git config --system mergetool.keepBackup false
+
+
+
+
+git config --local diff.tool p4merge
+git config --local difftool.p4merge.cmd '\"c:/Program Files/Perforce/p4merge.exe\" "$LOCAL" "$REMOTE"'
+git config --local difftool.prompt false
+			 
+git config --local merge.tool p4merge
+git config --local mergetool.p4merge.cmd '\"c:/Program Files/Perforce/p4merge.exe\" "$BASE" "$LOCAL" "$REMOTE" "$MERGED"'
+git config --local mergetool.prompt false
+git config --local mergetool.trustExitCode false
+git config --local mergetool.keepBackup false
+

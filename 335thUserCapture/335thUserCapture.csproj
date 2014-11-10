@@ -96,11 +96,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.94.0\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Instrumentation" />
     <Reference Include="System.Windows.Forms" />
@@ -122,13 +117,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interfaces\IFolderInfomation.cs" />
+    <Compile Include="Interfaces\IScanState.cs" />
     <Compile Include="Interfaces\ILoadState.cs" />
     <Compile Include="Interfaces\IUsersInfo.cs" />
-    <Compile Include="Interfaces\IUserSelected.cs" />
-    <Compile Include="Interfaces\IRemoteExecute.cs" />
     <Compile Include="Interfaces\ISaveBackupInformation.cs" />
-    <Compile Include="Model\BackupDatabase.cs" />
     <Compile Include="Model\BackupDatabaseSQLite.cs" />
+    <Compile Include="Model\BackupJob.cs" />
     <Compile Include="Model\BaseInformation.cs" />
     <Compile Include="Model\ComputerUsers.cs" />
     <Compile Include="Model\ComputerUsersFromWMI.cs" />
@@ -137,16 +131,10 @@
     <Compile Include="ObjectFactory\ModelFactory.cs" />
     <Compile Include="ObjectFactory\ViewModelFactory.cs" />
     <Compile Include="ViewModel\ButtonExecute.cs" />
-    <Compile Include="ViewModel\CaptureOneUserOnComputer\ComputerUserViewModel.cs" />
-    <Compile Include="ViewModel\CaptureOneUserOnComputer\LocationViewModel.cs" />
-    <Compile Include="ViewModel\CaptureOneUserOnComputer\OutputViewModel.cs" />
-    <Compile Include="ViewModel\CaptureOneUserOnComputer\StartBackupViewModel.cs" />
+    <Compile Include="ViewModel\CaptureOneUserOnComputer\CaptureOneUserOnComputer.cs" />
     <Compile Include="ViewModel\RestoreFromInteralStore\RestoreFromInternalStoreViewModelcs.cs" />
     <Compile Include="View\CaptureOneUserOnComputer\CaptureOneUserOnComputer.xaml.cs">
       <DependentUpon>CaptureOneUserOnComputer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CaptureOneUserOnComputer\Output.xaml.cs">
-      <DependentUpon>Output.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RestoreFromInternalStore\RestoreFromInternalStore.xaml.cs">
       <DependentUpon>RestoreFromInternalStore.xaml</DependentUpon>
@@ -154,18 +142,7 @@
     <Compile Include="View\temp\SelectOfflineWinDir.xaml.cs">
       <DependentUpon>SelectOfflineWinDir.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaptureOneUserOnComputer\StartBackup.xaml.cs">
-      <DependentUpon>StartBackup.xaml</DependentUpon>
-    </Compile>
     <Page Include="View\CaptureOneUserOnComputer\CaptureOneUserOnComputer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CaptureOneUserOnComputer\ListUsers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CaptureOneUserOnComputer\LocationSavedAt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,29 +154,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\CaptureOneUserOnComputer\ListUsers.xaml.cs">
-      <DependentUpon>ListUsers.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CaptureOneUserOnComputer\LocationSavedAt.xaml.cs">
-      <DependentUpon>LocationSavedAt.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\CaptureOneUserOnComputer\Output.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\RestoreFromInternalStore\RestoreFromInternalStore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\temp\SelectOfflineWinDir.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CaptureOneUserOnComputer\StartBackup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -273,11 +236,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)USMT
-xcopy /S /Y $(ProjectDir)USMT $(TargetDir)USMT
-    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
-    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+xcopy /S /Y $(SolutionDir)packages\USMT $(TargetDir)USMT
+mkdir $(TargetDir)x64
+xcopy /S /Y $(SolutionDir)packages\System.Data.SQLite.Core.1.0.94.0\build\net45\x64 $(TargetDir)x64
+mkdir $(TargetDir)x86
+xcopy /S /Y $(SolutionDir)packages\System.Data.SQLite.Core.1.0.94.0\build\net45\x86 $(TargetDir)x86
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

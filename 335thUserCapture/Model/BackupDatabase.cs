@@ -3,7 +3,6 @@ using System.Data.SqlServerCe;
 using System;
 using System.Data;
 using System.Collections.Generic;
-using System.Windows;
 
 namespace _335thUserCapture.Model
 {
@@ -13,28 +12,12 @@ namespace _335thUserCapture.Model
         public BackupDatabase()
         {
 
-            try
-            {
-                _connection = new SqlCeConnection(@"Data Source = .\DB\BackupDetails.sdf");
-            }
-            catch (Exception e)
-            {
-
-                MessageBox.Show("Something went really wrong with the Database");
-                MessageBox.Show(e.ToString());
-            }
+            _connection = new SqlCeConnection(@"Data Source = .\DB\BackupDetails.sdf");
         }
 
         public int SaveBackupInfo(string user, string computer, string backupLocation)
         {
-            try{
-                _connection.Open();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Something went really wrong with opening the Database");
-                MessageBox.Show(e.ToString());
-            }
+            _connection.Open();
             DateTime now = DateTime.Now;
             var command = _connection.CreateCommand();
 
@@ -92,14 +75,7 @@ namespace _335thUserCapture.Model
 
         public void CompletedBackup(int ID)
         {
-            try
-            {
-                _connection.Open();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Something went really wrong with opening the Database");
-            }
+            _connection.Open();
 
             DateTime now = DateTime.Now;
             var command = _connection.CreateCommand();
@@ -121,15 +97,7 @@ namespace _335thUserCapture.Model
 
         public List<IUserJob> AllBackups()
         {
-            try
-            {
-                _connection.Open();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Something went really wrong with opening the Database");
-            }
-
+            _connection.Open();
             var command = _connection.CreateCommand();
 
             //Get all data
@@ -252,19 +220,6 @@ namespace _335thUserCapture.Model
         public override string ToString()
         {
             return "User:" + this.User + "\r\nComputer:" + this.Computer + "\r\nStart time:" + Start.ToLocalTime();
-        }
-
-        private string _currentBackupLocation;
-        public string CurrentBackupLocation
-        {
-            get
-            {
-                return _currentBackupLocation;
-            }
-            set
-            {
-                _currentBackupLocation = value;
-            }
         }
     }
 }

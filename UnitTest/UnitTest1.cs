@@ -62,24 +62,6 @@ namespace UnitTest
         }*/
 
         [TestMethod]
-        public void TestCreatingDB()
-        {
-            BackupDatabase test = new BackupDatabase();
-            int ID = test.SaveBackupInfo("test", "ThisPuter", "BLAHAHAHA");
-            test.CompletedBackup(ID);
-            List<IUserJob> allJobs = test.AllBackups();
-            IUserJob found = null;
-            for (int i = 0; i < allJobs.Count; i++)
-            {
-                if (allJobs[i].ID == ID)
-                    found = allJobs[i];
-                Debug.WriteLine(allJobs[i]);
-            }
-            Assert.IsNotNull(found);
-
-        }
-
-        [TestMethod]
         public void RestoreFromInteralStoreTest()
         {
             var backupInfo = new TestGetBckupInfo();
@@ -92,10 +74,10 @@ namespace UnitTest
                 Debug.WriteLine(job);
             }
             //Verify with SelectedBackupJob set to null that i cannot execute
-            Assert.IsTrue(!ViewModel.StartBackup.CanExecute(null));
+            Assert.IsTrue(!ViewModel.StartRestore.CanExecute(null));
             //Verify CanExecute Event handler did its job
             bool canExecuteEventHandler = false;
-            ViewModel.StartBackup.CanExecuteChanged += ((object a, EventArgs e) =>
+            ViewModel.StartRestore.CanExecuteChanged += ((object a, EventArgs e) =>
             {
                 canExecuteEventHandler = true;
             });
@@ -103,7 +85,7 @@ namespace UnitTest
             ViewModel.SelectedBackupJob = ViewModel.AllBackupJobs[0];
             Assert.IsTrue(backupInfo.ValidateItem(ViewModel.SelectedBackupJob));
             //Verify StartBackup
-            ViewModel.StartBackup.Execute(null);
+            ViewModel.StartRestore.Execute(null);
             Assert.IsTrue(loadState.Touched);
             //Verify Output and Output Event Handler
             bool outputEventHandler = false;

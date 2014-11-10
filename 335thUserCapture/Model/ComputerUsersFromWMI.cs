@@ -10,6 +10,7 @@ namespace _335thUserCapture.Model
 {
     /// <summary>
     /// This only loads local users, will not work for our enviroment
+    /// NOT USED FOR THE CURRENT IMPLEMENTATION
     /// </summary>
     class ComputerUsersFromWMI : IUsersInfo
     {
