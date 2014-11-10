@@ -74,10 +74,10 @@ namespace UnitTest
                 Debug.WriteLine(job);
             }
             //Verify with SelectedBackupJob set to null that i cannot execute
-            Assert.IsTrue(!ViewModel.StartBackup.CanExecute(null));
+            Assert.IsTrue(!ViewModel.StartRestore.CanExecute(null));
             //Verify CanExecute Event handler did its job
             bool canExecuteEventHandler = false;
-            ViewModel.StartBackup.CanExecuteChanged += ((object a, EventArgs e) =>
+            ViewModel.StartRestore.CanExecuteChanged += ((object a, EventArgs e) =>
             {
                 canExecuteEventHandler = true;
             });
@@ -85,7 +85,7 @@ namespace UnitTest
             ViewModel.SelectedBackupJob = ViewModel.AllBackupJobs[0];
             Assert.IsTrue(backupInfo.ValidateItem(ViewModel.SelectedBackupJob));
             //Verify StartBackup
-            ViewModel.StartBackup.Execute(null);
+            ViewModel.StartRestore.Execute(null);
             Assert.IsTrue(loadState.Touched);
             //Verify Output and Output Event Handler
             bool outputEventHandler = false;

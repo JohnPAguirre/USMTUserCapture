@@ -39,13 +39,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Start" Grid.Column="1" Margin="5" Grid.Row="3" Command="{Binding StartBackup}"/>
+        <Button Content="Start" Grid.Column="1" Margin="5" Grid.Row="3" Command="{Binding StartRestore}"/>
         <TextBox Margin="10" Grid.Row="4" TextWrapping="Wrap" 
                  ScrollViewer.CanContentScroll="True" 
                  ScrollViewer.VerticalScrollBarVisibility="Visible" 
                  ScrollViewer.HorizontalScrollBarVisibility="Visible" 
                  Grid.ColumnSpan="2" IsReadOnly="True" 
-                 Text="{Binding Output}" TextChanged="TextBox_TextChanged_1"
+                 Text="{Binding Output, Mode=OneWay}" TextChanged="TextBox_TextChanged_1"
                  Background="Transparent"/>
     </Grid>
 

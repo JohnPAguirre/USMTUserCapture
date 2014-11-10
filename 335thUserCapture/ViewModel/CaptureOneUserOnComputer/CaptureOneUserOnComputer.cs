@@ -11,6 +11,9 @@ using System.Windows.Input;
 
 namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
 {
+    /// <summary>
+    /// View Model for the Backup one user tab
+    /// </summary>
     public class CaptureOneUserOnComputerViewModel : INotifyPropertyChanged
     {
         private List<string> _users;
@@ -22,7 +25,7 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
         private ButtonAsyncExecute _go;
         
         /// <summary>
-        /// All of the users in the C:\Users folder is displayed here
+        /// All of the users in the IUserInformation is placed here.
         /// </summary>
         public List<string> Users
         {
@@ -32,6 +35,10 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
             }
         }
 
+        /// <summary>
+        /// Selected user is placed here.  This is the value be passed into the backup module
+        /// Once set, will check if everthing is valid and enable to button
+        /// </summary>
         public string SelectedUser
         {
             get
@@ -46,7 +53,9 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
             }
         }
 
-
+        /// <summary>
+        /// This is where the backup files will be placed
+        /// </summary>
         public string Location
         {
             get
@@ -55,6 +64,10 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
             }
         }
 
+        /// <summary>
+        /// Implements the button.  This is initially disabled until SelectedUser
+        /// has a entry and the base folder exists
+        /// </summary>
         public ICommand StartBackup
         {
             get
@@ -63,6 +76,9 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
             }
         }
 
+        /// <summary>
+        /// Output contains the output associated with the backup module IScanState
+        /// </summary>
         public string Output
         {
             get
@@ -71,6 +87,12 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
             }
         }
 
+        /// <summary>
+        /// Sets up view state and sets up button
+        /// </summary>
+        /// <param name="allUsers">All users on the computer</param>
+        /// <param name="folders">Folders required for the program to run</param>
+        /// <param name="db"> Method to save backup information for later retrieval</param>
         public CaptureOneUserOnComputerViewModel(
             IUsersInfo allUsers, 
             IFolderInformation folders,
@@ -84,6 +106,10 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
             _go = new ButtonAsyncExecute(Start);
         }
 
+        /// <summary>
+        /// Executes when the button is enabled and clicked. This updates output 
+        /// </summary>
+        /// <returns></returns>
         public async Task Start()
         {
             //Save our job
@@ -96,11 +122,15 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
 
             StreamReader output = backup.Output;
             char[] temp = new char[1];
-            while ((await output.ReadAsync(temp, 0, 1) != 0))
+            //stop messing with the async code
+            await Task.Run(async () =>
             {
-                _output.Append(temp[0]);
-                PropertyModified("Output"); //
-            }
+                while ((await output.ReadAsync(temp, 0, 1) != 0))
+                {
+                    _output.Append(temp[0]);
+                    PropertyModified("Output"); //
+                }
+            });
 
             //Annotate that our job is done
             _db.CompletedBackup(ID);

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace _335thUserCapture.Model
 {
+    /// <summary>
+    ///Implements IuserJob, please see docs there
+    /// </summary>
     public class BackupJob : IUserJob
     {
 

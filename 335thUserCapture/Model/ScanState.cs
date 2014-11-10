@@ -74,7 +74,7 @@ namespace _335thUserCapture.Model
         }
 
 
-
+        //Original String called from backup script created 2012/10/22
         //& "C:\Program Files\USMT\Binaries\v4\x86\scanstate.exe" I:\$back_user /i:"C:\Program Files\USMT\Binaries\v4\x86\miguser.xml" /i:"C:\Program Files\USMT\Binaries\v4\x86\migapp.xml" /ue:*\* /ui:"ar\$back_user" /c /efs:copyraw
 
         public void Dispose()
