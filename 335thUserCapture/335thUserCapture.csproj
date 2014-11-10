@@ -120,7 +120,6 @@
     <Compile Include="Interfaces\IScanState.cs" />
     <Compile Include="Interfaces\ILoadState.cs" />
     <Compile Include="Interfaces\IUsersInfo.cs" />
-    <Compile Include="Interfaces\IUserSelected.cs" />
     <Compile Include="Interfaces\ISaveBackupInformation.cs" />
     <Compile Include="Model\BackupDatabaseSQLite.cs" />
     <Compile Include="Model\BackupJob.cs" />

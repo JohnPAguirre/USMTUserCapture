@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace _335thUserCapture.Model
 {
+    /// <summary>
+    /// Implements LoadState as the restore mechanism for the application
+    /// </summary>
     public class LoadState : ILoadState
     {
         private IFolderInformation _folders;
@@ -18,6 +21,8 @@ namespace _335thUserCapture.Model
         {
             _folders = folders;
         }
+
+
         public StreamReader StartRestore(IUserJob JobToRestore)
         {
             _loadState = new Process();

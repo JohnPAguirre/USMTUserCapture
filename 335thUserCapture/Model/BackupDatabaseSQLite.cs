@@ -10,11 +10,27 @@ using System.Windows;
 
 namespace _335thUserCapture.Model
 {
+    /// <summary>
+    /// Backup database for recording backup jobs.  Currently dumps the
+    /// data into a SQlite database for ease of management and portability.
+    /// NOTICE: This was originally implemented with Microsoft SQL Compact but SQL
+    /// Compact dropped support for opening databases over a network drive.
+    /// As this tool requires running over the network, had to scrap it and move
+    /// to SQLIte
+    /// </summary>
+    /// <see cref="http://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki"/>
+    /// <seealso cref="https://connect.microsoft.com/SQLServer/feedback/details/646333/sql-ce-4-0-no-longer-supports-opening-files-on-a-network-share"/>
     public class BackupDatabaseSQLite : IGetBackupInformation, ISaveBackupInformation
     {
 
         private SQLiteConnection _connection;
         private IFolderInformation _folders;
+
+        /// <summary>
+        /// Currently needs the database and tables to already be created
+        /// TODO: Check for existing file and create if necessary
+        /// </summary>
+        /// <param name="folders"></param>
         public BackupDatabaseSQLite(IFolderInformation folders)
         {
             _folders = folders;
@@ -30,6 +46,15 @@ namespace _335thUserCapture.Model
                 MessageBox.Show(e.ToString());
             }
         }
+
+        /// <summary>
+        /// Records the Start of a backup job. Always finish the backkup entry
+        /// by calling CompleteBackup with the ID returned by this method
+        /// </summary>
+        /// <param name="user">User that was backed up</param>
+        /// <param name="computer">Computername</param>
+        /// <param name="backupLocation">Relative location to the 335UserCapture Executable</param>
+        /// <returns>ID ofthe record.  Save it to call CompleteBackup</returns>
         public int SaveBackupInfo(string user, string computer, string backupLocation)
         {
             _connection.Open();
@@ -81,6 +106,10 @@ namespace _335thUserCapture.Model
             return ID;
         }
 
+        /// <summary>
+        /// This annotates when the backup is complete
+        /// </summary>
+        /// <param name="ID">ID of the record to update</param>
         public void CompletedBackup(int ID)
         {
             _connection.Open();
@@ -102,6 +131,10 @@ namespace _335thUserCapture.Model
             _connection.Close();
         }
 
+        /// <summary>
+        /// All backups are returned as IUserJobs
+        /// </summary>
+        /// <returns>All Jobs in the database</returns>
         public List<IUserJob> AllBackups()
         {
             _connection.Open();

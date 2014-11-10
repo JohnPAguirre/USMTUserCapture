@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace _335thUserCapture.Model
 {
-    public class BaseInformation : IFolderInformation, IUserSelected
+    /// <summary>
+    /// Please see IFolderInformation for implementation details
+    /// </summary>
+    public class BaseInformation : IFolderInformation
     {
         //IFolderInformation
         private string _baseFolder;
@@ -74,41 +77,7 @@ namespace _335thUserCapture.Model
             }
         }
 
-        //IUserSelected
-        private string _selectedUser;
-        public string SelectedUser {
-            get
-            {
-                return _selectedUser;
-            }
-            set
-            {
-                _selectedUser = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedUser"));
 
-            }
-        }
-
-
-        private bool _isUserValid;
-        /// <summary>
-        /// This value needs to be set when a user is selected.
-        /// </summary>
-        public bool IsUserValid
-        {
-            get
-            {
-                return _isUserValid;
-            }
-            set 
-            {
-                _isUserValid = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsUserValid"));
-
-            }
-        }
 
         private bool _isBaseFolderValid;
         public bool IsBaseFolderValid
@@ -121,7 +90,6 @@ namespace _335thUserCapture.Model
 
         public BaseInformation() 
         {
-            _isUserValid = false;
             _isBaseFolderValid = false;
 
             //original method to get file path was a bad way to do it

@@ -10,13 +10,19 @@ using System.Windows.Input;
 
 namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
 {
+    /// <summary>
+    /// View model to the restore user tab
+    /// </summary>
     public class RestoreFromInternalStoreViewModel : INotifyPropertyChanged
     {
         private List<IUserJob> _allBackupJobs;
         private IUserJob _selectedBackupJob;
-        private ButtonExecute _startBackup;
+        private ButtonAsyncExecute _startBackup;
         private string _output;
 
+        /// <summary>
+        /// Displays all user jobs retrieved from IGetBackupInformation (the database)
+        /// </summary>
         public List<IUserJob> AllBackupJobs
         {
             get
@@ -25,6 +31,9 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
             }
         }
 
+        /// <summary>
+        /// Updates selected backup job. This will pass to the restore system once StartBackup is executed.  Once set, it enables the start backup button
+        /// </summary>
         public IUserJob SelectedBackupJob
         {
             get
@@ -39,7 +48,10 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
             }
         }
 
-        public ICommand StartBackup
+        /// <summary>
+        /// Implements the button.  This is initially disabled until and SelectedBackupJob has a entry.
+        /// </summary>
+        public ICommand StartRestore
         {
             get
             {
@@ -47,19 +59,24 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
             }
         }
 
+        /// <summary>
+        /// This will have to output provided by the ILoadState stream returned by the ILoadState StartRestore method.  
+        /// Updated by the function put into the button.
+        /// </summary>
         public string Output
         {
             get
             {
                 return _output;
             }
-            set
-            {
-                _output = value;
-                ChangedProperty("Output");
-            }
         }
 
+        /// <summary>
+        /// Constructor to initialize componenets. Sets up button function and retrievesall the backups in
+        /// IGetGackupInformation (databasee) alongwith the ILoadState restore interface.
+        /// </summary>
+        /// <param name="db">All Users backed up</param>
+        /// <param name="restore">The restore mechanism</param>
         public RestoreFromInternalStoreViewModel(IGetBackupInformation db, ILoadState restore)
         {
             try
@@ -72,10 +89,11 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
                 Application.Current.Shutdown();
             }
             _output = "";
-            _startBackup = new ButtonExecute(()=>{
+            //stop messing with the async code, its sorta funky
+            _startBackup = new ButtonAsyncExecute( async ()=>{
                 var stream = restore.StartRestore(_selectedBackupJob);
                 _startBackup.Disabled();
-                Task.Run(async () =>
+                await Task.Run(async () =>
                 {
                     char[] temp = new char[1];
                     while ((await stream.ReadAsync(temp, 0, 1) != 0))
@@ -85,6 +103,7 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
                         ChangedProperty("Output");
                     }
                 });
+
             });
         }
 
