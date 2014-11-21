@@ -15,6 +15,8 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="72"/>
             <RowDefinition Height="75*"/>
+
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="43*"/>
         </Grid.RowDefinitions>
@@ -25,7 +27,7 @@
             <Label Content="Restore User" HorizontalAlignment="Center" />
         </Viewbox>
         <Label Content="Please select from the following list the user &#xD;&#xA;you wish to restore" Grid.Row="1" Margin="10" Grid.ColumnSpan="2"/>
-        <ListView Margin="10" Grid.Row="2" Grid.RowSpan="2" 
+        <ListView Margin="10" Grid.Row="2" Grid.RowSpan="3" 
                   ItemsSource="{Binding AllBackupJobs}" 
                   SelectedItem="{Binding SelectedBackupJob}"
                   Background="Transparent">
@@ -39,8 +41,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Start" Grid.Column="1" Margin="5" Grid.Row="3" Command="{Binding StartRestore}"/>
-        <TextBox Margin="10" Grid.Row="4" TextWrapping="Wrap" 
+        <Button Content="Delete" Grid.Column="1" Margin="5" Grid.Row="3" Command="{Binding DeleteJob}"/>
+        <Button Content="Start" Grid.Column="1" Margin="5" Grid.Row="4" Command="{Binding StartRestore}"/>
+        <TextBox Margin="10" Grid.Row="5" TextWrapping="Wrap" 
                  ScrollViewer.CanContentScroll="True" 
                  ScrollViewer.VerticalScrollBarVisibility="Visible" 
                  ScrollViewer.HorizontalScrollBarVisibility="Visible" 

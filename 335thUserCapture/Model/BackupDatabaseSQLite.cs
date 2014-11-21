@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,7 +70,7 @@ namespace _335thUserCapture.Model
                 reader.Read();
                 //if there is no entry, this will equal true and create a version table
                 bool tableCreated = reader.GetInt32(0) == 0;
-                reader.Close();
+                reader.Close(); //always close reader, even a connectin.close will not kill the lock on the db
 
                 if (tableCreated)
                 {
@@ -98,7 +99,7 @@ namespace _335thUserCapture.Model
                 var reader = dbVersion.ExecuteReader();
                 reader.Read();
                 bool needsUpgrade = reader.GetInt32(0) == 1;
-                reader.Close();
+                reader.Close(); //always close reader, even a connectin.close will not kill the lock on the db
 
                 if (needsUpgrade)
                 {
@@ -246,10 +247,76 @@ namespace _335thUserCapture.Model
             return backups;
         }
 
+        /// <summary>
+        /// Moves the job from the BackupEntries to CompletedJobs.  Along with 
+        /// </summary>
+        /// <param name="job"></param>
         public void DeleteBackup(IUserJob job)
         {
+
+            //figure out the size of the directory
+            long sizeInBytes = 0;
+            var dir = new DirectoryInfo(job.CurrentBackupLocation);
+            var files = dir.GetFiles();
+            foreach (var file in files)
+            {
+                sizeInBytes += file.Length;
+            }
+
+            var usmtFolder = new DirectoryInfo(dir.FullName + "USMT\\");
+            if (usmtFolder.Exists)
+            {
+                foreach (var file in usmtFolder.GetFiles())
+                {
+                    sizeInBytes += file.Length;
+                }
+            }
+
             
-            throw new NotImplementedException("get this done");
+            _connection.Open();
+            //add job to CompletedJobs
+            using (var insertOldData = _connection.CreateCommand())
+            {
+                insertOldData.CommandText = @"INSERT INTO CompletedJobs ([ID],[User],[Computer],[BackupLocation],[StartTime],[EndTime],[SizeMB])
+                                    VALUES (@id, @user, @computer, @backupLocation, @start, @end, @size)";
+                insertOldData.Parameters.Add(new SQLiteParameter("@id", DbType.Int32));
+                insertOldData.Parameters.Add(new SQLiteParameter("@user", DbType.String));
+                insertOldData.Parameters.Add(new SQLiteParameter("@computer", DbType.String));
+                insertOldData.Parameters.Add(new SQLiteParameter("@backupLocation", DbType.String));
+                insertOldData.Parameters.Add(new SQLiteParameter("@start", DbType.DateTime));
+                insertOldData.Parameters.Add(new SQLiteParameter("@end", DbType.DateTime));
+                insertOldData.Parameters.Add(new SQLiteParameter("@size", DbType.Int32));
+
+                insertOldData.Parameters["@id"].Value = job.ID;
+                insertOldData.Parameters["@user"].Value = job.User;
+                insertOldData.Parameters["@computer"].Value = job.Computer;
+                insertOldData.Parameters["@backupLocation"].Value = job.BackupLocation;
+                insertOldData.Parameters["@start"].Value = job.Start;
+                insertOldData.Parameters["@end"].Value = job.End;
+                insertOldData.Parameters["@size"].Value = sizeInBytes/1000000;
+
+                insertOldData.Prepare();  //not needed
+
+                insertOldData.ExecuteNonQuery();
+                insertOldData.Dispose();
+
+            }
+
+            //delete job from backupEntries
+            using (var deleteJob = _connection.CreateCommand())
+            {
+                deleteJob.CommandText = "DELETE FROM BackupEntries WHERE ID = @id;";
+                deleteJob.Parameters.Add(new SQLiteParameter("@id", DbType.Int32));
+                deleteJob.Parameters["@id"].Value = job.ID;
+
+                deleteJob.ExecuteNonQuery();
+                deleteJob.Dispose();
+            }
+
+            //delete the directory and do it recursivly
+            Directory.Delete(job.CurrentBackupLocation, true);
+
+            _connection.Close();
         }
     }
 }
