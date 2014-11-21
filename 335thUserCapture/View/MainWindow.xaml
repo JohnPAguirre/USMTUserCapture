@@ -18,7 +18,7 @@
         </TabItem>
         <TabItem Header="Help">
             <Grid>
-                <Label Margin="10,10,-10,-10">Version 1.0.0.7</Label>
+                <Label Margin="10,10,-10,-10">Version 1.0.0.9</Label>
                 <Label Margin="10,38,-10,-38">Created by John Aguirre</Label>
                 <Label Margin="10,67,-10,-67">Please email bugs and feature recommendations to john.p.aguirre.civ@mail.mil</Label>
             </Grid>

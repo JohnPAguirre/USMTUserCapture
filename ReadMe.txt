@@ -13,6 +13,13 @@ hits restore.
 
 --------------------------------------------
 
+Needed packages
+NUGET sqlite packages
+USMT under packages\USMT\binary\
+Scanstate, loadstate and all files in the folder should go into the path above
+
+--------------------------------------------
+
 This program is a glorified GUI wrapper for Microsoft USMT scan state and load state 
 (EX: http://technet.microsoft.com/en-us/library/hh825256.aspx) with the intended result 
 being that it is extremely simple to use.  

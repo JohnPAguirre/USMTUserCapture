@@ -41,7 +41,9 @@ namespace _335thUserCapture.Model
             //_scanState.StartInfo.Verb = "runas";
             _scanState.StartInfo.WorkingDirectory = folders.BaseFolder + folders.USMTBinaryFolder;
             _scanState.StartInfo.FileName = folders.BaseFolder + folders.USMTBinaryFolder + "scanstate.exe";
-            string arguments = String.Format("{0} /i:\"{1}migapp.xml\" /i:\"{1}miguser.xml\" /ue:*\\* /ui:*\\{2} /c /efs:copyraw", 
+            string arguments = String.Format("{0} /l:\"{0}scanstate.log\" /progress:\"{0}ScanStateProgress.log\" " + 
+                "/i:\"{1}migapp.xml\" /i:\"{1}miguser.xml\" " + 
+                "/ue:*\\* /ui:*\\{2} /c /efs:copyraw", 
                 folders.BaseFolder + folders.UserBackupFolder, 
                 folders.BaseFolder + folders.USMTBinaryFolder,
                 user);

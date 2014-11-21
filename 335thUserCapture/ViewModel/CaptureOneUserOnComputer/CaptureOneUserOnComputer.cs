@@ -79,11 +79,11 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
         /// <summary>
         /// Output contains the output associated with the backup module IScanState
         /// </summary>
-        public string Output
+        public StringBuilder Output
         {
             get
             {
-                return _output.ToString();
+                return _output;
             }
         }
 
@@ -112,6 +112,7 @@ namespace _335thUserCapture.ViewModel.CaptureOneUserOnComputer
         /// <returns></returns>
         public async Task Start()
         {
+            _go.DisableForever();
             //Save our job
             int ID = _db.SaveBackupInfo(this.SelectedUser, Environment.GetEnvironmentVariable("COMPUTERNAME"), _folders.UserBackupFolder);
             //create our folder
