@@ -60,17 +60,22 @@ namespace _335thUserCapture.ViewModel
     {
         private Func<Task> _RemoteAction;
         private bool _canExecute;
+        private bool _disableForever;
 
         public ButtonAsyncExecute(Func<Task> RemoteAction)
         {
             _RemoteAction = RemoteAction;
             _canExecute = false;
+            _disableForever = false;
         }
 
         public void Enable()
         {
-            _canExecute = true;
-            ExecuteChanged();
+            if (!_disableForever)
+            {
+                _canExecute = true;
+                ExecuteChanged();
+            }
         }
 
         public void Disabled()
@@ -79,6 +84,11 @@ namespace _335thUserCapture.ViewModel
             ExecuteChanged();
         }
 
+        public void DisableForever()
+        {
+            Disabled();
+            _disableForever = true;
+        }
         public bool CanExecute(object parameter)
         {
             return _canExecute;

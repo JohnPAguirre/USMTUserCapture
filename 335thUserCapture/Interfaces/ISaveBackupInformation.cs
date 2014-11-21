@@ -40,6 +40,8 @@ namespace _335thUserCapture.Interfaces
         /// </summary>
         /// <returns>All performed backups in order from newest to oldest</returns>
         List<IUserJob> AllBackups();
+
+        void DeleteBackup(IUserJob id);
     }
 
     /// <summary>

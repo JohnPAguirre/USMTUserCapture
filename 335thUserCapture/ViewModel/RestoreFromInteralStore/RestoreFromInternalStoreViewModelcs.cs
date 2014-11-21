@@ -18,6 +18,7 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
         private List<IUserJob> _allBackupJobs;
         private IUserJob _selectedBackupJob;
         private ButtonAsyncExecute _startBackup;
+        private ButtonAsyncExecute _deleteJob;
         private string _output;
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
                 _selectedBackupJob = value;
                 ChangedProperty("SelectedBackupJob");
                 _startBackup.Enable();
+                _deleteJob.Enable();
             }
         }
 
@@ -56,6 +58,14 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
             get
             {
                 return _startBackup;
+            }
+        }
+
+        public ICommand DeleteJob
+        {
+            get
+            {
+                return _deleteJob;
             }
         }
 
@@ -92,7 +102,7 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
             //stop messing with the async code, its sorta funky
             _startBackup = new ButtonAsyncExecute( async ()=>{
                 var stream = restore.StartRestore(_selectedBackupJob);
-                _startBackup.Disabled();
+                _startBackup.DisableForever();
                 await Task.Run(async () =>
                 {
                     char[] temp = new char[1];
@@ -104,6 +114,12 @@ namespace _335thUserCapture.ViewModel.RestoreFromInteralStore
                     }
                 });
 
+            });
+            _deleteJob = new ButtonAsyncExecute(async () =>
+            {
+                db.DeleteBackup(_selectedBackupJob);
+                _allBackupJobs = db.AllBackups();
+                ChangedProperty("AllBackupJobs");
             });
         }
 
