@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using _335thUserCapture.ViewModel.RestoreFromInteralStore;
+using USMTUserCapture.ViewModel.RestoreFromInteralStore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _335thUserCapture.Interfaces;
+using USMTUserCapture.Interfaces;
 using System.IO;
 
 namespace UnitTest

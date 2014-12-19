@@ -1,0 +1,25 @@
+﻿<Window x:Class="USMTUserCapture.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="335th User Backup and Restore"
+        xmlns:Views="clr-namespace:USMTUserCapture.View"
+        xmlns:Tab1="clr-namespace:USMTUserCapture.View.CaptureOneUserOnComputer"
+        xmlns:Tab2="clr-namespace:USMTUserCapture.View.RestoreFromInternalStore"
+        >
+    <TabControl>
+        <TabItem Header="Capture one user on this computer">
+            <Tab1:CaptureOneUserOnComputer />
+        </TabItem>
+        <TabItem Header="Restore Users">
+            <Tab2:RestoreFromInternalStore />
+        </TabItem>
+        <TabItem Header="Help">
+            <Grid>
+                <Label Margin="10,10,-10,-10">Version .8</Label>
+                <Label Margin="10,38,-10,-38">Created by John Aguirre</Label>
+                <Label Margin="10,67,-10,-67">Please email bugs and feature recommendations to john.p.aguirre.civ@norcrossvoip.com</Label>
+            </Grid>
+        </TabItem>
+    </TabControl>
+    
+</Window>

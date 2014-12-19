@@ -1,13 +1,13 @@
 ﻿using System;
-using _335thUserCapture.Model;
+using USMTUserCapture.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Management;
-using _335thUserCapture.Interfaces;
-using _335thUserCapture.ViewModel.RestoreFromInteralStore;
+using USMTUserCapture.Interfaces;
+using USMTUserCapture.ViewModel.RestoreFromInteralStore;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Threading;
