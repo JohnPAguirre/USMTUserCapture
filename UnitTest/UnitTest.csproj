@@ -59,9 +59,9 @@
     <Compile Include="UnitTestExperimental.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\335thUserCapture\335thUserCapture.csproj">
+    <ProjectReference Include="..\USMTUserCapture\USMTUserCapture.csproj">
       <Project>{3eb03d32-3bca-4792-aff5-9fa957db9bb0}</Project>
-      <Name>335thUserCapture</Name>
+      <Name>USMTUserCapture</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

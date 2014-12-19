@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="USMTUserCapture.View.RestoreFromInternalStore.RestoreFromInternalStore"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Local="clr-namespace:USMTUserCapture.View.RestoreFromInternalStore"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="75*"/>
+
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="43*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="{Binding Background}" Opacity="0.3" Stretch="Uniform"/>
+        </Grid.Background>
+        <Viewbox Margin="10" Grid.ColumnSpan="2">
+            <Label Content="Restore User" HorizontalAlignment="Center" />
+        </Viewbox>
+        <Label Content="Please select from the following list the user &#xD;&#xA;you wish to restore" Grid.Row="1" Margin="10" Grid.ColumnSpan="2"/>
+        <ListView Margin="10" Grid.Row="2" Grid.RowSpan="3" 
+                  ItemsSource="{Binding AllBackupJobs}" 
+                  SelectedItem="{Binding SelectedBackupJob}"
+                  Background="Transparent">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="User" DisplayMemberBinding="{Binding User}"/>
+                    <GridViewColumn Header="Computer" DisplayMemberBinding="{Binding Computer}"/>
+                    <GridViewColumn Header="BackupTime" DisplayMemberBinding="{Binding Start}"/>
+                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding CurrentBackupLocation}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Delete" Grid.Column="1" Margin="5" Grid.Row="3" Command="{Binding DeleteJob}"/>
+        <Button Content="Start" Grid.Column="1" Margin="5" Grid.Row="4" Command="{Binding StartRestore}"/>
+        <TextBox Margin="10" Grid.Row="5" TextWrapping="Wrap" 
+                 ScrollViewer.CanContentScroll="True" 
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+                 Grid.ColumnSpan="2" IsReadOnly="True" 
+                 Text="{Binding Output, Mode=OneWay}" TextChanged="TextBox_TextChanged_1"
+                 Background="Transparent"/>
+    </Grid>
+
+</UserControl>
