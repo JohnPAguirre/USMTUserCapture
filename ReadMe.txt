@@ -1,4 +1,4 @@
-The 335thUserCapture program is to simplify the way the 335th help desk backups and restores 
+The USMTUserCapture program is to simplify the way the my local help desk backups and restores 
 users.  Simplifying allows for an automated (no errors) in backing up users and allows techs 
 to run the program and walk away.
 
@@ -38,7 +38,7 @@ extending should be relatively easy, though a bit verbose.
 FEATURES TO IMPLEMENT AND ROADMAP
 Create Scanstate Interface to remove hard dependency in CaptureOneUserOnComputer.cs
 Show free space on backup drive and user folder size in CaptureOneUserOnComputer.xaml
-Allow techs to delete backup jobs
+Allow techs to delete backup jobs - Done but needs to validate if the tech REALLY wants to delete backup (oops)
 Implement Reporting features 
 	This includes jobs that were backup jobs that were deleted
 Allow capturing all users from a external drive using the /offlinewindir option in

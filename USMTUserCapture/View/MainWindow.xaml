@@ -13,14 +13,11 @@
         <TabItem Header="Restore Users">
             <Tab2:RestoreFromInternalStore />
         </TabItem>
-        <TabItem Header="Capture all users from external harddrive">
-            <Label>335th User Backup and Restore NOT IMPLEMENTED YET</Label>
-        </TabItem>
         <TabItem Header="Help">
             <Grid>
-                <Label Margin="10,10,-10,-10">Version 1.0.0.9</Label>
+                <Label Margin="10,10,-10,-10">Version .8</Label>
                 <Label Margin="10,38,-10,-38">Created by John Aguirre</Label>
-                <Label Margin="10,67,-10,-67">Please email bugs and feature recommendations to john.p.aguirre.civ@mail.mil</Label>
+                <Label Margin="10,67,-10,-67">Please email bugs and feature recommendations to john.p.aguirre.civ@norcrossvoip.com</Label>
             </Grid>
         </TabItem>
     </TabControl>

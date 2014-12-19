@@ -17,7 +17,7 @@ namespace USMTUserCapture.Model
     /// NOTICE: This was originally implemented with Microsoft SQL Compact but SQL
     /// Compact dropped support for opening databases over a network drive.
     /// As this tool requires running over the network, had to scrap it and move
-    /// to SQLIte
+    /// to SQLite
     /// </summary>
     /// <see cref="http://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki"/>
     /// <seealso cref="https://connect.microsoft.com/SQLServer/feedback/details/646333/sql-ce-4-0-no-longer-supports-opening-files-on-a-network-share"/>
@@ -39,6 +39,7 @@ namespace USMTUserCapture.Model
             {
 
                 _connection = new SQLiteConnection(@"Data Source = .\DB\BackupDetails.sqlite");
+                Upgrade();
             }
             catch (Exception e)
             {
@@ -48,7 +49,6 @@ namespace USMTUserCapture.Model
                 Application.Current.Shutdown();
             }
 
-            Upgrade();
         }
 
         private void Upgrade()

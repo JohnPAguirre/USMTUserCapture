@@ -32,7 +32,7 @@ namespace USMTUserCapture.Model
             _loadState.StartInfo.StandardOutputEncoding = Encoding.Unicode;
             _loadState.StartInfo.WorkingDirectory = _folders.BaseFolder + _folders.USMTBinaryFolder;
             _loadState.StartInfo.FileName = _folders.BaseFolder + _folders.USMTBinaryFolder + "loadstate.exe";
-            string arguments = String.Format("{0} /l:\"{0}scanstate.log\" /progress:\"{0}LoadStateProgress.log\" " +
+            string arguments = String.Format("{0} /l:\"{0}loadstate.log\" /progress:\"{0}LoadStateProgress.log\" " +
                 "/i:\"{1}migapp.xml\" /i:\"{1}miguser.xml\" /c",
                 _folders.BaseFolder + JobToRestore.BackupLocation,
                 _folders.BaseFolder + _folders.USMTBinaryFolder);

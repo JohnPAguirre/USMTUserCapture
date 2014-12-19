@@ -9,7 +9,7 @@
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -21,7 +21,7 @@
             <RowDefinition Height="43*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="..\Background\335thlogo.png" Opacity="0.3" Stretch="Uniform"/>
+            <ImageBrush ImageSource="{Binding Background}" Opacity="0.3" Stretch="Uniform"/>
         </Grid.Background>
         <Viewbox Margin="10" Grid.ColumnSpan="2">
             <Label Content="Restore User" HorizontalAlignment="Center" />

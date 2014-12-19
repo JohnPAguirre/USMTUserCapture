@@ -19,10 +19,10 @@
             <RowDefinition Height="43*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="..\Background\335thlogo.png" Opacity="0.3" Stretch="Uniform"/>
+            <ImageBrush ImageSource="{Binding Background}" Opacity="0.3" Stretch="Uniform"/>
         </Grid.Background>
         <Viewbox Grid.Column="0" Grid.ColumnSpan="2">
-            <Label>335th user backup from the local computer</Label>
+            <Label>User backup from the local computer</Label>
         </Viewbox>
         <StackPanel Margin="10" Orientation="Vertical" Grid.Row="1">
             <Label>List of uses currently installed</Label>
