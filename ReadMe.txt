@@ -44,4 +44,5 @@ Implement Reporting features
 Allow capturing all users from a external drive using the /offlinewindir option in
 	scanstate
 Redo the about page somehow
+Since I took the default background away, put in a way for users to put in a background
 
